@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not4nd | Немного о себе</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(270deg, #1a1a2e, #16213e, #0f3460, #2c003e, #512b58, #0d7377);
+            background-size: 400% 400%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+            animation: gradientShift 30s ease infinite;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            padding: 10px 0;
+        }
+        
+        .name-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+            perspective: 1000px;
+        }
+        
+        .greeting {
+            font-size: 5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 
+                0 0 10px rgba(255,255,255,0.8),
+                0 0 20px rgba(255,255,255,0.6),
+                0 0 30px rgba(255,255,255,0.4);
+            animation: 
+                pulse 2s infinite alternate,
+                float 3s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+            letter-spacing: 1px;
+            min-width: 320px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .name-text {
+            position: relative;
+            z-index: 2;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+        }
+        
+        .name-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #6e8efb, #a777e3, #ff3c38, #14ffec);
+            z-index: 1;
+            opacity: 0;
+            border-radius: 20px;
+            filter: blur(20px);
+            transition: opacity 0.5s ease;
+        }
+        
+        .greeting::before, .greeting::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            animation: line-pulse 2s infinite alternate;
+        }
+        
+        .greeting::before {
+            left: -60px;
+        }
+        
+        .greeting::after {
+            right: -60px;
+        }
+        
+        .greeting:hover {
+            transform: scale(1.05) rotate(2deg);
+            text-shadow: 
+                0 0 15px rgba(255,255,255,1),
+                0 0 30px rgba(255,105,180,0.8),
+                0 0 45px rgba(173,216,230,0.6);
+        }
+        
+        .greeting:hover .name-overlay {
+            opacity: 0.3;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            position: relative;
+            animation: subtitle-pulse 3s infinite alternate;
+            max-width: 90%;
+            margin: 0 auto 20px;
+            min-height: 30px;
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            padding: 0 10px;
+        }
+        
+        @keyframes subtitle-pulse {
+            0% { opacity: 0.7; transform: translateY(0); }
+            100% { opacity: 1; transform: translateY(-5px); }
+        }
+        
+        @keyframes pulse {
+            from { 
+                text-shadow: 
+                    0 0 10px rgba(255,255,255,0.8),
+                    0 0 20px rgba(255,255,255,0.6),
+                    0 0 30px rgba(255,255,255,0.4); 
+            }
+            to { 
+                text-shadow: 
+                    0 0 15px rgba(255,255,255,1),
+                    0 0 30px rgba(255,105,180,0.8),
+                    0 0 45px rgba(173,216,230,0.6); 
+            }
+        }
+        
+        @keyframes float {
+            from { transform: translateY(0) rotateX(0); }
+            to { transform: translateY(-10px) rotateX(5deg); }
+        }
+        
+        @keyframes line-pulse {
+            from { 
+                width: 40px;
+                background: rgba(255,255,255,0.3);
+            }
+            to { 
+                width: 60px;
+                background: rgba(255,255,255,0.7);
+            }
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: particle-anim 10s infinite linear;
+            pointer-events: none;
+        }
+        
+        .particle.triangle {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            border-radius: 0;
+        }
+        
+        .particle.square {
+            border-radius: 5px;
+        }
+        
+        .particle.star {
+            background: transparent;
+            position: relative;
+        }
+        
+        .particle.star::before {
+            content: '\f005';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.8);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: inherit;
+        }
+        
+        .orbit-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(173, 216, 230, 0.8);
+            box-shadow: 0 0 15px rgba(173, 216, 230, 0.8);
+            pointer-events: none;
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+        }
+        
+        @keyframes particle-anim {
+            0% { 
+                transform: translateY(0) translateX(0) scale(0) rotate(0deg); 
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100vh) translateX(calc(50px * var(--x-mult))) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 20;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+        }
+        
+        .btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            padding: 0 10px;
+            z-index: 10;
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+        }
+        
+        .effect-indicator {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            filter: blur(20px);
+            z-index: -1;
+            animation: moveEffect 15s infinite alternate ease-in-out;
+        }
+        
+        @keyframes moveEffect {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-40px, 35px); }
+            75% { transform: translate(25px, -15px); }
+            100% { transform: translate(-50px, 25px); }
+        }
+        
+        @keyframes orbit {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px rgba(173, 216, 230, 1);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translateX(100px) rotate(-360deg);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes orbit-inner {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(70px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.9;
+                box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translateX(70px) rotate(-360deg);
+                opacity: 0.7;
+            }
+        }
+        
+        @keyframes orbit-fast {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(130px) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translateX(130px) rotate(-360deg);
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes name-change {
+            0% {
+                transform: scale(1) rotateX(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.8) rotateX(90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .name-change-animation {
+            animation: name-change 0.8s ease forwards;
+        }
+        
+        .particle-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .burst-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #14ffec;
+            box-shadow: 0 0 8px #14ffec;
+            animation: burst 0.8s ease-out forwards;
+        }
+        
+        @keyframes burst {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Стили для характеристик */
+        .trait {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 
+                0 0 10px rgba(255,255,255,0.8),
+                0 0 20px rgba(255,255,255,0.6);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            white-space: nowrap;
+            padding: 10px 20px;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            animation: trait-appear 0.5s forwards, trait-fly 1.5s 0.5s forwards;
+        }
+        
+        @keyframes trait-appear {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        @keyframes trait-fly {
+            to {
+                opacity: 0;
+                transform: 
+                    translate(calc(-50% + var(--tx)), 
+                    calc(-50% + var(--ty))) 
+                    scale(0.7);
+            }
+        }
+        
+        /* Стили для печеньки */
+        .cookie {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: #d9a066;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 8px rgba(0,0,0,0.2),
+                0 4px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            background-image: radial-gradient(circle, #a56a3f 15%, transparent 15%),
+                              radial-gradient(circle, #a56a3f 15%, transparent 15%),
+                              radial-gradient(circle, #a56a3f 15%, transparent 15%);
+            background-size: 8px 8px;
+            background-position: 8px 12px, 20px 8px, 32px 20px;
+            background-repeat: no-repeat;
+        }
+        
+        .cookie-fragment {
+            position: fixed;
+            width: 20px;
+            height: 40px;
+            background: #d9a066;
+            box-shadow: 
+                inset 0 0 4px rgba(0,0,0,0.2),
+                0 2px 4px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        
+        .fragment-left {
+            border-radius: 20px 0 0 20px;
+            background-image: radial-gradient(circle, #a56a3f 15%, transparent 15%);
+            background-size: 8px 8px;
+            background-position: 4px 8px;
+            background-repeat: no-repeat;
+        }
+        
+        .fragment-right {
+            border-radius: 0 20px 20px 0;
+            background-image: radial-gradient(circle, #a56a3f 15%, transparent 15%);
+            background-size: 8px 8px;
+            background-position: 8px 20px;
+            background-repeat: no-repeat;
+        }
+        
+        .cookie-text {
+            position: fixed;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+            z-index: 100;
+            white-space: nowrap;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        
+        /* Адаптивные стили для мобильных устройств */
+        @media (max-width: 768px) {
+            body {
+                background-size: 300% 300%;
+                padding: 10px;
+            }
+            
+            .greeting {
+                font-size: 3.5rem;
+                min-width: 250px;
+                height: 100px;
+                padding: 0 10px;
+            }
+            
+            .greeting::before, .greeting::after {
+                width: 25px;
+                height: 3px;
+            }
+            
+            .greeting::before {
+                left: -45px;
+            }
+            
+            .greeting::after {
+                right: -45px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 0 15px;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .trait {
+                font-size: 1.8rem;
+                padding: 8px 15px;
+            }
+            
+            .cookie-text {
+                font-size: 18px;
+            }
+            
+            .cookie {
+                width: 35px;
+                height: 35px;
+                background-size: 7px 7px;
+                background-position: 7px 10px, 18px 7px, 28px 18px;
+            }
+            
+            .cookie-fragment {
+                width: 17px;
+                height: 35px;
+            }
+            
+            .fragment-left {
+                background-position: 3px 8px;
+            }
+            
+            .fragment-right {
+                background-position: 7px 18px;
+            }
+            
+            .effect-indicator {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                background-size: 250% 250%;
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 5px 0;
+            }
+            
+            .name-container {
+                margin: 10px 0;
+            }
+            
+            .greeting {
+                font-size: 2.8rem;
+                min-width: 200px;
+                height: 80px;
+                padding: 0 5px;
+            }
+            
+            .greeting::before, .greeting::after {
+                width: 15px;
+                height: 2px;
+            }
+            
+            .greeting::before {
+                left: -30px;
+            }
+            
+            .greeting::after {
+                right: -30px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                margin-top: 15px;
+            }
+            
+            .btn {
+                width: 90%;
+                justify-content: center;
+                padding: 8px 15px;
+            }
+            
+            .trait {
+                font-size: 1.4rem;
+                padding: 6px 12px;
+            }
+            
+            .cookie-text {
+                font-size: 16px;
+            }
+            
+            .cookie {
+                width: 30px;
+                height: 30px;
+                background-size: 6px 6px;
+                background-position: 6px 9px, 15px 6px, 24px 15px;
+            }
+            
+            .cookie-fragment {
+                width: 15px;
+                height: 30px;
+                background-size: 6px 6px;
+            }
+            
+            .fragment-left {
+                background-position: 3px 7px;
+                border-radius: 15px 0 0 15px;
+            }
+            
+            .fragment-right {
+                background-position: 6px 16px;
+                border-radius: 0 15px 15px 0;
+            }
+            
+            .footer {
+                bottom: 5px;
+            }
+            
+            .effect-indicator {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        @media (max-height: 600px) and (max-width: 480px) {
+            .greeting {
+                font-size: 2.2rem;
+                height: 60px;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+            
+            .controls {
+                margin-top: 10px;
+            }
+            
+            .trait {
+                font-size: 1.2rem;
+            }
+            
+            .footer {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="effect-indicator"></div>
+    
+    <div class="container">
+        <div class="name-container">
+            <div class="orbit-particles" id="orbit-particles"></div>
+            <div class="greeting">
+                <div class="name-overlay"></div>
+                <div class="name-text" id="nameText">Not4nd</div>
+                <div class="particle-burst" id="particleBurst"></div>
+            </div>
+        </div>
+        
+        <div class="subtitle" id="subtitle">основную информацию можешь спросить лично ;)</div>
+        
+        <div class="controls">
+            <button class="btn" id="changeName">
+                <i class="fas fa-user-edit"></i> Имя?
+            </button>
+            <button class="btn" id="cookieBtn">
+                <i class="fas fa-cookie-bite"></i> Печеньки?
+            </button>
+            <button class="btn" id="showTraits">
+                <i class="fas fa-star"></i> Характеристики
+            </button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Информация обо мне | Сделал Not4nd с ❤️
+    </div>
+
+    <script>
+        // Массив цветовых схем
+        const colorSchemes = [
+            { primary: '#1a1a2e', secondary: '#16213e', accent: '#0f3460' },
+            { primary: '#2c003e', secondary: '#512b58', accent: '#8a508f' },
+            { primary: '#0d7377', secondary: '#14ffec', accent: '#323232' },
+            { primary: '#ff3c38', secondary: '#ff8c42', accent: '#ffd166' },
+            { primary: '#553555', secondary: '#755b69', accent: '#f2a65a' }
+        ];
+        
+        // Массив характеристик
+        const traits = [
+            "фотошопер", "ютубер", "программист", "гений", 
+            "м̶и̶л̶л̶и̶а̶р̶д̶е̶р̶", "3D-дизайнер", "креативщик", "стример",
+            "визуализатор", "технарь", "виртуоз кода", "мастер анимации",
+	    "добряк;)"
+        ];
+        
+        let currentColorIndex = 0;
+        let isShowingRealName = false;
+        
+        // Элементы страницы
+        const particlesContainer = document.getElementById('particles');
+        const orbitParticlesContainer = document.getElementById('orbit-particles');
+        const body = document.body;
+        const nameText = document.getElementById('nameText');
+        const greeting = document.querySelector('.greeting');
+        const changeNameBtn = document.getElementById('changeName');
+        const cookieBtn = document.getElementById('cookieBtn');
+        const showTraitsBtn = document.getElementById('showTraits');
+        const particleBurst = document.getElementById('particleBurst');
+        const subtitle = document.getElementById('subtitle');
+        const nameOverlay = document.querySelector('.name-overlay');
+        
+        // Создание частиц для фона
+        function createParticles(count) {
+            const colors = ['#ffffff', '#ffccff', '#ccffff', '#ffffcc'];
+            const shapes = ['circle', 'triangle', 'square', 'star'];
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                particle.classList.add('particle', shape);
+                
+                // Случайные параметры
+                const size = Math.random() * 10 + 3;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight + window.innerHeight;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 10;
+                const xMult = Math.random() > 0.5 ? 1 : -1;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.background = color;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.setProperty('--x-mult', xMult);
+                
+                if (shape === 'star') {
+                    particle.style.fontSize = `${size}px`;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                }
+                
+                particlesContainer.appendChild(particle);
+                
+                // Удаление частицы после завершения анимации
+                setTimeout(() => {
+                    particle.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+        
+        // Создание частиц, вращающихся вокруг ника
+        function createOrbitParticles() {
+            const orbitColors = ['#6e8efb', '#a777e3', '#ff3c38', '#14ffec', '#ffd166'];
+            
+            // Внешняя орбита
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('orbit-particle');
+                
+                const color = orbitColors[Math.floor(Math.random() * orbitColors.length)];
+                const size = Math.random() * 4 + 6;
+                const duration = 12 + Math.random() * 4;
+                const delay = Math.random() * 2;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 10px ${color}`;
+                particle.style.animation = `orbit ${duration}s linear ${delay}s infinite`;
+                
+                orbitParticlesContainer.appendChild(particle);
+            }
+            
+            // Внутренняя орбита
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('orbit-particle');
+                
+                const color = orbitColors[Math.floor(Math.random() * orbitColors.length)];
+                const size = Math.random() * 3 + 4;
+                const duration = 8 + Math.random() * 3;
+                const delay = Math.random() * 2;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 8px ${color}`;
+                particle.style.animation = `orbit-inner ${duration}s linear ${delay}s infinite`;
+                
+                orbitParticlesContainer.appendChild(particle);
+            }
+            
+            // Быстрая орбита
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('orbit-particle');
+                
+                const color = orbitColors[Math.floor(Math.random() * orbitColors.length)];
+                const size = Math.random() * 2 + 3;
+                const duration = 6 + Math.random() * 2;
+                const delay = Math.random() * 2;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 6px ${color}`;
+                particle.style.animation = `orbit-fast ${duration}s linear ${delay}s infinite`;
+                
+                orbitParticlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Создание эффекта взрыва частиц
+        function createBurstParticles() {
+            particleBurst.innerHTML = '';
+            
+            // Получаем размеры и позицию текста
+            const textRect = nameText.getBoundingClientRect();
+            const centerX = textRect.left + textRect.width / 2;
+            const centerY = textRect.top + textRect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('burst-particle');
+                
+                // Случайные параметры
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 80 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const size = 3 + Math.random() * 5;
+                const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                const duration = 0.4 + Math.random() * 0.4;
+                
+                // Позиционируем относительно центра текста
+                particle.style.position = 'fixed';
+                particle.style.left = `${centerX}px`;
+                particle.style.top = `${centerY}px`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 6px ${color}`;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                particle.style.animationDuration = `${duration}s`;
+                
+                particleBurst.appendChild(particle);
+                
+                // Удаление частицы после завершения анимации
+                setTimeout(() => {
+                    particle.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        // Смена имени
+        function toggleName() {
+            // Создаем эффект взрыва частиц
+            createBurstParticles();
+            
+            // Добавляем класс анимации
+            greeting.classList.add('name-change-animation');
+            
+            // Меняем имя после половины анимации
+            setTimeout(() => {
+                if (isShowingRealName) {
+                    nameText.textContent = "Not4nd";
+                    subtitle.textContent = "основную информацию можешь спросить лично ;)";
+                    nameOverlay.style.opacity = "0";
+                } else {
+                    nameText.textContent = "Максим";
+                    subtitle.textContent = "рад знакомству! ;)";
+                    nameOverlay.style.opacity = "0.4";
+                }
+                
+                isShowingRealName = !isShowingRealName;
+            }, 400);
+            
+            // Убираем класс анимации после завершения
+            setTimeout(() => {
+                greeting.classList.remove('name-change-animation');
+            }, 800);
+        }
+        
+        // Показ характеристик
+        function showTraits() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            // Создаем небольшой взрыв частиц в центре
+            createBurstParticles();
+            
+            // Показываем характеристики по одной с небольшой задержкой
+            traits.forEach((trait, index) => {
+                setTimeout(() => {
+                    const traitEl = document.createElement('div');
+                    traitEl.classList.add('trait');
+                    traitEl.textContent = trait;
+                    
+                    // Случайные параметры движения
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 200 + Math.random() * 150;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    traitEl.style.setProperty('--tx', `${tx}px`);
+                    traitEl.style.setProperty('--ty', `${ty}px`);
+                    
+                    // Случайный цвет из палитры
+                    const colors = [
+                        '#6e8efb', '#a777e3', '#ff3c38', '#14ffec', 
+                        '#ffd166', '#ff9999', '#99ff99', '#99ffff'
+                    ];
+                    traitEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    document.body.appendChild(traitEl);
+                    
+                    // Удаляем элемент после анимации
+                    setTimeout(() => {
+                        traitEl.remove();
+                    }, 2000);
+                }, index * 300); // Задержка между характеристиками
+            });
+        }
+        
+        // Функция для создания эффекта печеньки с адаптацией под размер экрана
+        function createCookie() {
+            // Размеры печеньки в зависимости от устройства
+            const isMobile = window.innerWidth <= 768;
+            const cookieSize = isMobile ? 30 : 40;
+            const fragmentWidth = isMobile ? 15 : 20;
+            const fragmentHeight = isMobile ? 30 : 40;
+            
+            // Рассчитываем безопасную зону для падения печеньки
+            const safeAreaPadding = 30;
+            const maxX = window.innerWidth - cookieSize - safeAreaPadding;
+            
+            // Генерируем случайную позицию в безопасной зоне
+            const startX = Math.max(safeAreaPadding, Math.min(maxX, Math.random() * window.innerWidth));
+            
+            // Создаем элемент печеньки
+            const cookie = document.createElement('div');
+            cookie.className = 'cookie';
+            cookie.style.width = `${cookieSize}px`;
+            cookie.style.height = `${cookieSize}px`;
+            document.body.appendChild(cookie);
+            
+            // Начальная позиция: случайная горизонтальная позиция вверху
+            cookie.style.left = `${startX}px`;
+            cookie.style.top = '-40px';
+            
+            // Целевая позиция (центр экрана или чуть выше)
+            const targetY = window.innerHeight / 2 - 80;
+            
+            // Анимация падения
+            cookie.animate([
+                { transform: `translateY(0) rotate(0deg)`, top: '-40px' },
+                { transform: `translateY(${targetY}px) rotate(360deg)`, top: `${targetY}px` }
+            ], {
+                duration: 1200,
+                easing: 'cubic-bezier(0.42, 0, 0.58, 1)',
+                fill: 'forwards'
+            }).onfinish = () => {
+                // Когда печенька упала, удаляем ее и создаем осколки и текст
+                cookie.remove();
+                
+                // Создаем два осколка
+                const fragment1 = document.createElement('div');
+                fragment1.className = 'cookie-fragment fragment-left';
+                fragment1.style.width = `${fragmentWidth}px`;
+                fragment1.style.height = `${fragmentHeight}px`;
+                fragment1.style.left = `${startX}px`;
+                fragment1.style.top = `${targetY}px`;
+                document.body.appendChild(fragment1);
+                
+                const fragment2 = document.createElement('div');
+                fragment2.className = 'cookie-fragment fragment-right';
+                fragment2.style.width = `${fragmentWidth}px`;
+                fragment2.style.height = `${fragmentHeight}px`;
+                fragment2.style.left = `${startX + fragmentWidth}px`;
+                fragment2.style.top = `${targetY}px`;
+                document.body.appendChild(fragment2);
+                
+                // Рассчитываем смещение для осколков с учетом безопасной зоны
+                const leftOffset = Math.min(startX, 30);
+                const rightOffset = Math.min(window.innerWidth - startX - fragmentWidth, 30);
+                
+                // Анимация разлета осколков
+                fragment1.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)' },
+                    { transform: `translate(${-leftOffset}px, -20px) rotate(-100deg)` }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+                
+                fragment2.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)' },
+                    { transform: `translate(${rightOffset}px, -20px) rotate(100deg)` }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+                
+                // Создаем текст
+                const text = document.createElement('div');
+                text.className = 'cookie-text';
+                text.textContent = 'угощайся;)';
+                text.style.left = `${startX + fragmentWidth}px`;
+                text.style.top = `${targetY}px`;
+                text.style.opacity = '0';
+                text.style.fontSize = isMobile ? '16px' : '20px';
+                
+                document.body.appendChild(text);
+                
+                // Анимация текста: появление и подъем
+                text.animate([
+                    { opacity: 0, transform: 'translateY(0)' },
+                    { opacity: 1, transform: 'translateY(0)' },
+                    { opacity: 0, transform: 'translateY(-80px)' }
+                ], {
+                    duration: 5000,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+                
+                // Удаляем все элементы через 6 секунд
+                setTimeout(() => {
+                    fragment1.remove();
+                    fragment2.remove();
+                    text.remove();
+                }, 6000);
+            };
+        }
+        
+        // Обработчики событий
+        changeNameBtn.addEventListener('click', toggleName);
+        cookieBtn.addEventListener('click', createCookie);
+        showTraitsBtn.addEventListener('click', showTraits);
+        
+        // Инициализация
+        function init() {
+            // Создаем начальные частицы
+            createParticles(20);
+            
+            // Создаем орбитальные частицы
+            createOrbitParticles();
+            
+            // Создаем новые частицы каждые 2.5 секунды
+            setInterval(() => createParticles(4), 2500);
+            
+            // Обработка изменения размера окна
+            window.addEventListener('resize', () => {
+                // Очищаем контейнеры с частицами
+                particlesContainer.innerHTML = '';
+                orbitParticlesContainer.innerHTML = '';
+                
+                // Создаем новые частицы
+                createParticles(20);
+                createOrbitParticles();
+            });
+        }
+        
+        // Запускаем инициализацию после загрузки страницы
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
